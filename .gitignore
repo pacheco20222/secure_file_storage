@@ -1,0 +1,10 @@
+# Ignore the .env file
+.env
+
+# Ignore the qr_codes folder content
+static/qr_codes/*
+
+# Ignore other unncecessary files
+venv/
+__pycache__/
+*.pyc

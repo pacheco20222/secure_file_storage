@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup 2FA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="main">  
+        <div class="setup-2fa">
+            <!-- Flash messages for errors or success -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-container">
+                        {% for category, message in messages %}
+                            <div class="flash-message {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <h2>Set Up 2FA for {{ username }}</h2>
+            <p>Scan the QR code below with your authenticator app:</p>
+            <img src="{{ url_for('static', filename='qr_codes/' ~ username ~ '_2fa.svg') }}" alt="QR Code for 2FA">
+            <form action="{{ url_for('verify_2fa', username=username) }}" method="POST">
+                <input type="text" name="otp_code" placeholder="Enter 2FA Code" required="">
+                <button>Verify 2FA</button>
+            </form>
+
+            <a href="{{ url_for('login') }}" class="login-link">Go to Login</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main">
+        <!-- Hidden checkbox for toggling between login and signup -->
+        <input type="checkbox" id="chk" aria-hidden="true">
+
+        <!-- Flash messages for errors or success -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="login">
+            <form action="{{ url_for('login') }}" method="POST">
+                <label for="chk" aria-hidden="true">Login</label>
+                <input type="email" name="email" placeholder="Email" required="">
+                <input type="password" name="password" placeholder="Password" required="">
+                <input type="text" name="otp_code" placeholder="2FA Code" required="">
+                <button>Login</button>
+                <div class="link">Don't have an account? <label for="chk">Sign up</label></div>
+            </form>
+        </div>
+
+        <div class="signup">
+            <form action="{{ url_for('register') }}" method="POST">
+                <label for="chk" aria-hidden="true">Sign up</label>
+                <input type="text" name="username" placeholder="User name" required="">
+                <input type="email" name="email" placeholder="Email" required="">
+                <input type="password" name="password" placeholder="Password" required="">
+                <button>Sign up</button>
+                <div class="link">Already have an account? <label for="chk">Login</label></div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
